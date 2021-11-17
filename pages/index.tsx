@@ -13,6 +13,23 @@ import styles from '../styles/Home.module.css'
 
 
 const Home: NextPage = () => {
+
+  const [screenWidth, setscreenWidth] = useState(600);
+  useEffect(() => {
+    setscreenWidth(window.innerWidth);
+  }, [])
+
+  useEffect(() => {
+    function handleResize() {
+      setscreenWidth(window.innerWidth);
+    }
+  
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, [])
+
   const validationSchema = Yup.object().shape({
     workCompany: Yup.string()
         .required('Work Company is required'),
@@ -35,28 +52,15 @@ const formOptions = { resolver: yupResolver(validationSchema) };
 // get functions to build form with useForm() hook
 const { register, handleSubmit, reset, formState } = useForm(formOptions);
 const { errors } = formState;
+const [isSubmit,setIsSubmit] = useState(false)
 
 function onSubmit(data:any) {
     // display form data on success
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(data, null, 4));
+    setIsSubmit(isSubmit => !isSubmit)
     return false
 }
 
-  const [screenWidth, setscreenWidth] = useState(600);
-  useEffect(() => {
-    setscreenWidth(window.innerWidth);
-  }, [])
-
-  useEffect(() => {
-    function handleResize() {
-      setscreenWidth(window.innerWidth);
-    }
-  
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    }
-  }, [])
   return (
     <>
       <div className={styles.totalSIgnUpContainer}>
@@ -100,9 +104,9 @@ function onSubmit(data:any) {
            <div> <input id="checkbox" type="checkbox" {...register('acceptTerms')} />
               <label htmlFor="checkbox"> Yes,I have read and agreed to terms</label>
               <p className={styles.invalidfeedback}>{errors.acceptTerms?.message}</p></div>
-              <div className={styles.thankyouCardContainer}>
+              {isSubmit && <div className={styles.thankyouCardContainer}>
                 <p className={styles.thankyouCardPara}><span className={styles.thankyouCardParaFirst}>Thank you for signing up!</span><br />Complete your verification by clicking the link and Please check your e-mail as well as spam folder!</p>
-              </div>
+              </div>}
               <p>Already have an Account?<span className={styles.loginLine}> Login here!</span></p>
     </form>           
                </div>
