@@ -16,7 +16,7 @@ const Home: NextPage = () => {
     function handleResize() {
       setscreenWidth(window.innerWidth);
     }
-
+  
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -36,11 +36,11 @@ const Home: NextPage = () => {
           <div className={styles.innerSignupCOntainer}>
             <h1 className={styles.RootFiSignUpHeading}>RootFi</h1>
             <h1 className={styles.signUpDashboardText}>SignUp for Our Dashboard!</h1>
-            <KM_Input name="Work Email" typ="email" />
-            <KM_Input name="Company name" typ="text" />
-            <KM_Input name="Password" typ="password" />
-            <KM_Input name="Confirm Password" typ="password" />
-            <KM_Input name="Mobile Number" typ="tel" />
+            <KM_Input name="Work Email" type="email" />
+            <KM_Input name="Company name" type="text" />
+            <KM_Input name="Password" type="password" />
+            <KM_Input name="Confirm Password" type="password" />
+            <KM_Input name="Mobile Number" type="tel" />
             <Button className = "sButton" onClick="function" buttonText="Submit"/>
             <div>
               <h2 className={styles.termsAndConditions}>Please read the <span className={styles.termsAndConditionsMiddle}>BrokenTusk Terms Of Service</span> before signing up.</h2>

@@ -14,5 +14,41 @@ model neerajfans{
   id Int @id @default(autoincrement())
   name String 
   age Int?
+}
+model Signup{
+  id                Int       @id @default(autoincrement())
+  work_email        String    @unique
+  company_name      String 
+  password          String 
+  confirm_password String
+  mobile_number    Int        @unique
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 
 }
+model Login{
+  work_email  String @unique
+  password String
+}
+// model User {
+//   email   String    @unique
+//   name    String?
+//   user_id Int       @id @default(autoincrement())
+//   post    Post[]
+//   profile Profile[]
+// }
+
+// model Post {
+//   content   String?
+//   post_id   Int     @id @default(autoincrement())
+//   title     String
+//   author    User?   @relation(fields: [author_id], references: [user_id])
+//   author_id Int?
+// }
+
+// model Profile {
+//   bio        String?
+//   profile_id Int     @id @default(autoincrement())
+//   user       User    @relation(fields: [user_id], references: [user_id])
+//   user_id    Int
+// }
