@@ -51,6 +51,10 @@
   width: 95%;
   margin-bottom: 5px;
 }
+.invalidfeedback{
+  color: red;
+  font-size: 10px;
+}
 .starSignUp{
   color: red;
 }
