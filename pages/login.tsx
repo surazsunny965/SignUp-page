@@ -1,6 +1,5 @@
-import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import  {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as Yup from 'yup';
