@@ -1,14 +1,11 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react';
 import  {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as Yup from 'yup';
-
+import { handler } from './api/signup';
 import "yup-phone";
-
-//import KM_Input from '../components/input-field'
-
-//import Button from '../components/Button';
 import styles from '../styles/Home.module.css'
 
 
@@ -43,19 +40,23 @@ const Home: NextPage = () => {
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Confirm Password is required'),
     mobileNumber:Yup.string().phone('IN',true)
-    .required('Enter valid Mobile Number'),
+        .required('Enter valid Mobile Number'),
     acceptTerms: Yup.bool()
         .oneOf([true], 'Accept Ts & Cs is required')
 });
-const formOptions = { resolver: yupResolver(validationSchema) };
+const formOptions = { resolver:yupResolver(validationSchema) };
 
-// get functions to build form with useForm() hook
-const { register, handleSubmit, reset, formState } = useForm(formOptions);
+const { register, handleSubmit, formState } = useForm(formOptions);
 const { errors } = formState;
 const [isSubmit,setIsSubmit] = useState(false)
+const router = useRouter()
+
+function aboutPage(){
+  router.push("/login");
+}
 
 function onSubmit(data:any) {
-    // display form data on success
+  console.log(data)
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(data, null, 4));
     setIsSubmit(isSubmit => !isSubmit)
     return false
@@ -71,8 +72,8 @@ function onSubmit(data:any) {
           </div> : <div></div>
         }
 
-        <div className={styles.RootFISignUpcontainer}>
-          <div className={styles.innerSignupCOntainer}>
+      <div className={styles.RootFISignUpcontainer}>
+        <div className={styles.innerSignupCOntainer}>
             <h1 className={styles.RootFiSignUpHeading}>RootFi</h1>
             <h1 className={styles.signUpDashboardText}>SignUp for Our Dashboard!</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,7 +100,7 @@ function onSubmit(data:any) {
           <p className={styles.invalidfeedback}>{errors.mobileNumber?.message}</p>
           </div>
           <button type="submit" className={styles.sButton}>Register</button>
-          <button type="button" onClick={() => reset()} className={styles.sButton}>Reset</button>
+       {/* <button type="button" onClick={() => reset()} className={styles.sButton}>Reset</button> */}
           <h2 className={styles.termsAndConditions}>Please read the <span className={styles.termsAndConditionsMiddle}>BrokenTusk Terms Of Service</span> before signing up.</h2>
            <div> <input id="checkbox" type="checkbox" {...register('acceptTerms')} />
               <label htmlFor="checkbox"> Yes,I have read and agreed to terms</label>
@@ -107,7 +108,7 @@ function onSubmit(data:any) {
               {isSubmit && <div className={styles.thankyouCardContainer}>
                 <p className={styles.thankyouCardPara}><span className={styles.thankyouCardParaFirst}>Thank you for signing up!</span><br />Complete your verification by clicking the link and Please check your e-mail as well as spam folder!</p>
               </div>}
-              <p>Already have an Account?<span className={styles.loginLine}> Login here!</span></p>
+              <p>Already have an Account?<span onClick={aboutPage} className={styles.loginLine}> Login here!</span></p>
     </form>           
                </div>
             </div>
