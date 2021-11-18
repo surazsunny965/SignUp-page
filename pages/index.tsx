@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import  {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as Yup from 'yup';
-import { handler } from './api/signup';
 import "yup-phone";
 import styles from '../styles/Home.module.css'
 
